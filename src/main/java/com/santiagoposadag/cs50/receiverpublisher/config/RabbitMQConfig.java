@@ -25,7 +25,7 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue getGeneralQueue() {
-        return new Queue(GENERAL_QUEUE);
+        return new Queue(GENERAL_QUEUE, true);
     }
 
     @Bean
@@ -56,19 +56,6 @@ public class RabbitMQConfig {
     @Bean
     public Binding BindingToBuyQueue() {
         return BindingBuilder.bind(getBuyQueue()).to(getTopicExchange()).with(BUY_ROUTING_KEY);
-    }
-
-    @Bean
-    public MessageConverter getMessageConverter() {
-        return new Jackson2JsonMessageConverter();
-
-    }
-
-    @Bean
-    public AmqpTemplate getAmqpTemplate(ConnectionFactory connectionFactory) {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(getMessageConverter());
-        return rabbitTemplate;
     }
 
 }
