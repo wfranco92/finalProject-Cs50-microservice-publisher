@@ -3,6 +3,8 @@ package com.santiagoposadag.cs50.receiverpublisher.routers;
 
 import com.santiagoposadag.cs50.receiverpublisher.dto.CryptoCurrencyDto;
 import com.santiagoposadag.cs50.receiverpublisher.usecases.PostMessageToRabbitUseCase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -18,6 +20,9 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 @Configuration
 public class CommandRouter {
+
+    @Autowired
+    ApplicationEventPublisher publisher;
 
     @Bean
     public RouterFunction<ServerResponse> postActionRoute(PostMessageToRabbitUseCase postMessageToRabbit){
