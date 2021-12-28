@@ -67,6 +67,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>cs50-finalproject-publisher</finalName>
 	</build>
 
 </project>
