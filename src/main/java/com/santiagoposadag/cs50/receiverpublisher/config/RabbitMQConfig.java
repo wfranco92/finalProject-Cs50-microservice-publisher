@@ -10,12 +10,15 @@ public class RabbitMQConfig {
     public static final String GENERAL_QUEUE = "action.general";
     public static final String SELL_QUEUE = "action.sell";
     public static final String BUY_QUEUE = "action.buy";
+    public static final String USER_QUEUE = "action.login";
+
 
     public static final String EXCHANGE = "actions_exchange";
 
     public static final String GENERAL_ROUTING_KEY = "routingKey.*";
     public static final String SELL_ROUTING_KEY = "routingKey.sell";
     public static final String BUY_ROUTING_KEY = "routingKey.buy";
+    public static final String USER_ROUTING_KEY = "routingKey.login";
 
     @Bean
     public Queue getGeneralQueue() {
@@ -30,6 +33,16 @@ public class RabbitMQConfig {
     @Bean
     public Queue getBuyQueue() {
         return new Queue(BUY_QUEUE);
+    }
+
+    /**
+     * > The function creates a queue named `USER_QUEUE` and returns it
+     *
+     * @return A Queue object
+     */
+    @Bean
+    public Queue getUserQueue() {
+        return new Queue(USER_QUEUE);
     }
 
     @Bean
@@ -50,6 +63,18 @@ public class RabbitMQConfig {
     @Bean
     public Binding BindingToBuyQueue() {
         return BindingBuilder.bind(getBuyQueue()).to(getTopicExchange()).with(BUY_ROUTING_KEY);
+    }
+
+    /**
+     * `BindingBuilder.bind(getBuyQueue()).to(getTopicExchange()).with(BUY_ROUTING_KEY);`
+     *
+     * This function binds the queue to the exchange with the routing key
+     *
+     * @return A Binding object.
+     */
+    @Bean
+    public Binding BindingToUserQueue() {
+        return BindingBuilder.bind(getUserQueue()).to(getTopicExchange()).with(USER_ROUTING_KEY);
     }
 
 }
